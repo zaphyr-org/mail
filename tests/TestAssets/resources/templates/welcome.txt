@@ -1,0 +1,3 @@
+Welcome %name%!
+
+Nice to have you aboard.
