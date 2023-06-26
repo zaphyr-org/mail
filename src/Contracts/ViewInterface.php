@@ -15,7 +15,7 @@ interface ViewInterface
      * @param string              $path
      * @param array<string,mixed> $data
      *
-     * @throws MailerException if the template file could not be found.
+     * @throws MailerException
      * @return string
      */
     public function render(string $path, array $data): string;

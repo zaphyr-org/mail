@@ -144,7 +144,7 @@ class MailerTest extends TestCase
     public function testSendThrowsExceptionWhenViewFileCouldNotBeFound(): void
     {
         $this->expectException(MailerException::class);
-        $this->expectExceptionMessage('Could not find email template "not-found.html"');
+        $this->expectExceptionMessage('Template file "not-found.html"');
 
         $this->mailer->send([Mailer::VIEW_HTML => 'not-found.html']);
     }
