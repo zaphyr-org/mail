@@ -28,6 +28,9 @@
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "^4.0"
     },
+    "suggest": {
+        "twig/twig": "If email templates require more complex logic, it is recommended to install the twig template engine (^3.0)"
+    },
     "autoload": {
         "psr-4": {
             "Zaphyr\\Mail\\": "src/"
