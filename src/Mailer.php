@@ -58,9 +58,9 @@ class Mailer implements MailerInterface
      */
     public function __construct(
         protected SymfonyMailerInterface $mailer,
-        protected string $charset = 'utf-8',
         protected ViewInterface $view = new View(),
-        protected EmailBuilderInterface $emailBuilder = new EmailBuilder(new SymfonyEmail())
+        protected EmailBuilderInterface $emailBuilder = new EmailBuilder(new SymfonyEmail()),
+        protected string $charset = 'utf-8',
     ) {
     }
 
