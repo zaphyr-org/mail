@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\MailTests;
+namespace Zaphyr\MailTests\Unit;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -17,12 +17,12 @@ class EmailBuilderTest extends TestCase
      */
     protected EmailBuilder $emailBuilder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->emailBuilder = new EmailBuilder(new Email());
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->emailBuilder);
     }

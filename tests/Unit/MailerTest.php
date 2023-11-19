@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\MailTests;
+namespace Zaphyr\MailTests\Unit;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -27,13 +27,13 @@ class MailerTest extends TestCase
      */
     protected Mailer $mailer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->symfonyMailerMock = $this->createMock(SymfonyMailer::class);
         $this->mailer = new Mailer($this->symfonyMailerMock);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->symfonyMailerMock, $this->mailer);
     }
@@ -50,8 +50,8 @@ class MailerTest extends TestCase
         $date = new DateTimeImmutable('now');
         $this->mailer->send(
             view: [
-                Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html',
-                Mailer::VIEW_TEXT => __DIR__ . '/TestAssets/resources/templates/welcome.txt',
+                Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html',
+                Mailer::VIEW_TEXT => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt',
             ],
             callback: function (EmailBuilderInterface $email) use ($bccAddress, $date) {
                 $email
@@ -65,8 +65,8 @@ class MailerTest extends TestCase
                     ->subject('Welcome')
                     ->date($date)
                     ->priority(2)
-                    ->attachFile(__DIR__ . '/TestAssets/resources/templates/welcome.txt')
-                    ->attachData(__DIR__ . '/TestAssets/resources/templates/welcome.txt');
+                    ->attachFile(dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt')
+                    ->attachData(dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt');
             }
         );
 
@@ -96,7 +96,7 @@ class MailerTest extends TestCase
         $this->symfonyMailerMock->expects(self::once())->method('send');
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) {
                 $email
                     ->from('from@example.com')
@@ -116,7 +116,7 @@ class MailerTest extends TestCase
         $this->symfonyMailerMock->expects(self::once())->method('send');
 
         $this->mailer->send(
-            view: [Mailer::VIEW_TEXT => __DIR__ . '/TestAssets/resources/templates/welcome.txt'],
+            view: [Mailer::VIEW_TEXT => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt'],
             callback: function (EmailBuilderInterface $email) {
                 $email
                     ->from('from@example.com')
@@ -157,7 +157,7 @@ class MailerTest extends TestCase
 
         $this->expectException(MailerException::class);
 
-        $this->mailer->send([Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html']);
+        $this->mailer->send([Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html']);
     }
 
     /* -------------------------------------------------
@@ -179,8 +179,8 @@ class MailerTest extends TestCase
             {
                 $this
                     ->view([
-                        Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html',
-                        Mailer::VIEW_TEXT => __DIR__ . '/TestAssets/resources/templates/welcome.txt',
+                        Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html',
+                        Mailer::VIEW_TEXT => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt',
                     ], ['name' => 'John Doe'])
                     ->from('from@example.com')
                     ->sender('sender@example.com')
@@ -192,8 +192,8 @@ class MailerTest extends TestCase
                     ->subject('Welcome')
                     ->date($this->dateTime)
                     ->priority(2)
-                    ->attachFile(__DIR__ . '/TestAssets/resources/templates/welcome.txt')
-                    ->attachData(__DIR__ . '/TestAssets/resources/templates/welcome.txt');
+                    ->attachFile(dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt')
+                    ->attachData(dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt');
             }
         };
 
@@ -227,7 +227,7 @@ class MailerTest extends TestCase
             {
                 $this
                     ->from('jonh@doe.com')
-                    ->html(__DIR__ . '/TestAssets/resources/templates/welcome.html', ['name' => 'John Doe']);
+                    ->html(dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html', ['name' => 'John Doe']);
             }
         };
 
@@ -247,7 +247,7 @@ class MailerTest extends TestCase
             {
                 $this
                     ->from('from@example.com')
-                    ->text(__DIR__ . '/TestAssets/resources/templates/welcome.txt', ['name' => 'John Doe']);
+                    ->text(dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt', ['name' => 'John Doe']);
             }
         };
 
@@ -268,8 +268,8 @@ class MailerTest extends TestCase
                 $this
                     ->from('from@example.com')
                     ->view([
-                        Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html',
-                        Mailer::VIEW_TEXT => __DIR__ . '/TestAssets/resources/templates/welcome.txt',
+                        Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html',
+                        Mailer::VIEW_TEXT => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt',
                     ], ['name' => 'John Doe']);
             }
         };
@@ -292,8 +292,8 @@ class MailerTest extends TestCase
                 $this
                     ->from('from@example.com')
                     ->view([
-                        Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html',
-                        Mailer::VIEW_TEXT => __DIR__ . '/TestAssets/resources/templates/welcome.txt',
+                        Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html',
+                        Mailer::VIEW_TEXT => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.txt',
                     ], ['name' => 'John Doe']);
             }
         };
@@ -322,7 +322,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysFrom($address);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) {
                 $email->to('to@example.com');
             }
@@ -339,7 +339,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysFrom($address);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) use ($overwriteAddress) {
                 $email->from($overwriteAddress)->to('to@example.com');
             }
@@ -361,7 +361,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysReplyTo($address);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) {
                 $email->to('to@example.com');
             }
@@ -378,7 +378,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysReplyTo($overwriteAddress);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) use ($overwriteAddress) {
                 $email->replyTo($overwriteAddress)->to('overwriteAlwaysReplayTo@example.com');
             }
@@ -400,7 +400,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysReturnPath($address);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) {
                 $email->to('to@example.com');
             }
@@ -417,7 +417,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysReturnPath($overwriteAddress);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) use ($overwriteAddress) {
                 $email->replyTo($overwriteAddress)->to('to@example.com');
             }
@@ -439,7 +439,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysTo($address);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $emailBuilder) {
                 $emailBuilder->from('sender@email.com')
                     ->to('to@example.com')
@@ -461,7 +461,7 @@ class MailerTest extends TestCase
     {
         $this->mailer->alwaysTo(['alwaysTo1@example.com', new Address('alwaysTo2@example.com')]);
 
-        $this->mailer->send([Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html']);
+        $this->mailer->send([Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html']);
 
         self::assertEquals(
             [new Address('alwaysTo1@example.com'), new Address('alwaysTo2@example.com')],
@@ -477,7 +477,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysTo($overwriteAddress);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) use ($overwriteAddress) {
                 $email->to($overwriteAddress);
             }
@@ -494,7 +494,7 @@ class MailerTest extends TestCase
         $this->mailer->alwaysTo($address);
 
         $this->mailer->send(
-            view: [Mailer::VIEW_HTML => __DIR__ . '/TestAssets/resources/templates/welcome.html'],
+            view: [Mailer::VIEW_HTML => dirname(__DIR__) . '/TestAssets/resources/templates/welcome.html'],
             callback: function (EmailBuilderInterface $email) {
                 $email->cc('cc@example.com')->bcc('bcc@example.com');
             }
