@@ -53,7 +53,7 @@ abstract class AbstractMailable implements MailableInterface
     /**
      * @var string|null
      */
-    protected string|null $subject = null;
+    protected ?string $subject = null;
 
     /**
      * @var DateTimeInterface|null
