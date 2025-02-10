@@ -134,7 +134,7 @@ class EmailBuilder implements EmailBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function attachFile(string $path, string|null $name = null, string|null $contentType = null): static
+    public function attachFile(string $path, ?string $name = null, ?string $contentType = null): static
     {
         $this->email->attachFromPath($path, $name, $contentType);
 
@@ -144,7 +144,7 @@ class EmailBuilder implements EmailBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function attachData($body, string|null $name = null, string|null $contentType = null): static
+    public function attachData($body, ?string $name = null, ?string $contentType = null): static
     {
         $this->email->attach($body, $name, $contentType);
 

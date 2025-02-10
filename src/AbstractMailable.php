@@ -58,12 +58,12 @@ abstract class AbstractMailable implements MailableInterface
     /**
      * @var DateTimeInterface|null
      */
-    protected DateTimeInterface|null $date = null;
+    protected ?DateTimeInterface $date = null;
 
     /**
      * @var int|null
      */
-    protected int|null $priority = null;
+    protected ?int $priority = null;
 
     /**
      * @var array<array{path: string, name: string|null, contentType: string|null}>
@@ -78,12 +78,12 @@ abstract class AbstractMailable implements MailableInterface
     /**
      * @var string|null
      */
-    protected string|null $html = null;
+    protected ?string $html = null;
 
     /**
      * @var string|null
      */
-    protected string|null $text = null;
+    protected ?string $text = null;
 
     /**
      * @var array{html?: string|null, text?: string|null}
@@ -225,7 +225,7 @@ abstract class AbstractMailable implements MailableInterface
      *
      * @return $this
      */
-    public function attachFile(string $path, string|null $name = null, string|null $contentType = null): static
+    public function attachFile(string $path, ?string $name = null, ?string $contentType = null): static
     {
         $this->attachmentFiles[] = compact('path', 'name', 'contentType');
 
@@ -239,7 +239,7 @@ abstract class AbstractMailable implements MailableInterface
      *
      * @return $this
      */
-    public function attachData($body, string|null $name = null, string|null $contentType = null): static
+    public function attachData($body, ?string $name = null, ?string $contentType = null): static
     {
         $this->attachmentData[] = compact('body', 'name', 'contentType');
 

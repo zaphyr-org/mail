@@ -93,7 +93,7 @@ interface EmailBuilderInterface
      *
      * @return $this
      */
-    public function attachFile(string $path, string|null $name = null, string|null $contentType = null): static;
+    public function attachFile(string $path, ?string $name = null, ?string $contentType = null): static;
 
     /**
      * @param string|resource $body
@@ -104,8 +104,8 @@ interface EmailBuilderInterface
      */
     public function attachData(
         $body,
-        string|null $name = null,
-        string|null $contentType = null
+        ?string $name = null,
+        ?string $contentType = null
     ): static;
 
     /**

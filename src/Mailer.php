@@ -131,7 +131,7 @@ class Mailer implements MailerInterface
     /**
      * {@inheritdoc}
      */
-    public function send(MailableInterface|array $view, array $data = [], callable $callback = null): void
+    public function send(MailableInterface|array $view, array $data = [], ?callable $callback = null): void
     {
         if ($view instanceof MailableInterface) {
             $view->send($this);
@@ -218,8 +218,8 @@ class Mailer implements MailerInterface
      */
     protected function addContent(
         EmailBuilderInterface $emailBuilder,
-        string|null $html,
-        string|null $text,
+        ?string $html,
+        ?string $text,
         array $data
     ): void {
         if ($html) {

@@ -70,7 +70,7 @@ interface MailerInterface
      * @throws MailerException if the email could not be sent.
      * @return void
      */
-    public function send(MailableInterface|array $view, array $data = [], callable $callback = null): void;
+    public function send(MailableInterface|array $view, array $data = [], ?callable $callback = null): void;
 
     /**
      * @return EmailBuilderInterface
