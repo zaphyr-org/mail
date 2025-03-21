@@ -22,11 +22,12 @@ composer require zaphyr-org/mail
 
 ## Documentation
 
-You can read the full documentation [here](https://zaphyr.org/docs/1.x/repositories/mail).
+You can read the full documentation [here](https://zaphyr.org/docs/repositories/latest/mail).
 
 ## Issues
 
-Bug reports and feature requests can be submitted on the [GitHub Issue Tracker](https://github.com/zaphyr-org/mail/issues).
+Bug reports and feature requests can be submitted on
+the [GitHub Issue Tracker](https://github.com/zaphyr-org/mail/issues).
 
 ## Security
 
